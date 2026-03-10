@@ -1,0 +1,43 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/viest/AppData/Local/Programs/Python//**)",
+      "Bash(pip show:*)",
+      "Bash(python3 -m pip install -r requirements.txt -q)",
+      "Bash(PYTHON=\"/c/Users/viest/AppData/Local/Programs/Python/Python313/python.exe\" \"$PYTHON\" -m pip install -r /c/Users/viest/Documents/src/birdwatch/backend/requirements.txt -q)",
+      "Bash(cmd.exe /c \"C:\\\\Users\\\\viest\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python313\\\\python.exe -m pip install -r requirements.txt -q 2>&1\")",
+      "Bash(cmd.exe /c \"C:\\\\Users\\\\viest\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python313\\\\python.exe -m pytest -m integration -v 2>&1\")",
+      "Bash(cmd.exe /c \"C:\\\\Users\\\\viest\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python313\\\\python.exe -m pytest -m integration -v\")",
+      "Bash(cmd.exe /c \"C:\\\\Users\\\\viest\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python313\\\\python.exe -m pytest -m integration -v > output.txt 2>&1 & type output.txt\")",
+      "Bash(powershell.exe -Command \"cd ''C:\\\\Users\\\\viest\\\\Documents\\\\src\\\\birdwatch\\\\backend''; & ''C:\\\\Users\\\\viest\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python313\\\\python.exe'' -m pytest -m integration -v; exit $LASTEXITCODE\")",
+      "Bash(powershell.exe -Command \"cd ''C:\\\\Users\\\\viest\\\\Documents\\\\src\\\\birdwatch\\\\backend''; & ''C:\\\\Users\\\\viest\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python313\\\\python.exe'' -m pytest -m integration -v\")",
+      "Bash(powershell.exe -Command \"cd ''C:\\\\Users\\\\viest\\\\Documents\\\\src\\\\birdwatch\\\\backend''; & ''C:\\\\Users\\\\viest\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python313\\\\python.exe'' -m pip install pytest pytest-asyncio httpx 2>&1 | Select-Object -Last 5\")",
+      "Bash(powershell.exe -Command \"cd ''C:\\\\Users\\\\viest\\\\Documents\\\\src\\\\birdwatch\\\\backend''; & ''C:\\\\Users\\\\viest\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python313\\\\python.exe'' -m pip install -r requirements.txt 2>&1 | Select-Object -Last 5\")",
+      "Bash(powershell.exe -Command \"cd ''C:\\\\Users\\\\viest\\\\Documents\\\\src\\\\birdwatch\\\\backend''; & ''C:\\\\Users\\\\viest\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python313\\\\python.exe'' -m pytest -m integration -v 2>&1\")",
+      "Bash(powershell.exe -Command \"cd ''C:\\\\Users\\\\viest\\\\Documents\\\\src\\\\birdwatch''; npx create-expo-app@latest mobile --template blank-typescript 2>&1\")",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -Command \"cd ''C:\\\\Users\\\\viest\\\\Documents\\\\src\\\\birdwatch''; npx create-expo-app@latest mobile --template blank-typescript 2>&1\")",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -Command \"cd ''C:\\\\Users\\\\viest\\\\Documents\\\\src\\\\birdwatch\\\\mobile''; cat package.json\")",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -Command \"cd ''C:\\\\Users\\\\viest\\\\Documents\\\\src\\\\birdwatch\\\\mobile''; npx expo install expo-router expo-image-picker 2>&1\")",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -Command \"Get-Content ''C:\\\\Users\\\\viest\\\\Documents\\\\src\\\\birdwatch\\\\mobile\\\\app.json''\")",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -Command \"cd ''C:\\\\Users\\\\viest\\\\Documents\\\\src\\\\birdwatch\\\\mobile''; npx expo install jest-expo @testing-library/react-native 2>&1\")",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -Command \"cd ''C:\\\\Users\\\\viest\\\\Documents\\\\src\\\\birdwatch\\\\mobile''; npm install --save-dev jest-expo @testing-library/react-native react-test-renderer --legacy-peer-deps 2>&1 | Select-Object -Last 10\")",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -Command \"cd ''C:\\\\Users\\\\viest\\\\Documents\\\\src\\\\birdwatch\\\\mobile''; npx jest --no-coverage 2>&1\")",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -Command \"cd ''C:\\\\Users\\\\viest\\\\Documents\\\\src\\\\birdwatch\\\\mobile''; npm install --save-dev jest --legacy-peer-deps 2>&1 | Select-Object -Last 5\")",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -Command \"cd ''C:\\\\Users\\\\viest\\\\Documents\\\\src\\\\birdwatch\\\\mobile''; npm install --save-dev react-test-renderer@19.2.0 --legacy-peer-deps 2>&1 | Select-Object -Last 5\")",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -Command \"cd ''''C:\\\\Users\\\\viest\\\\Documents\\\\src\\\\birdwatch\\\\mobile''''; \\(Get-Content node_modules/jest-expo/package.json | ConvertFrom-Json\\).peerDependencies\")",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -Command \"Get-Content ''C:\\\\Users\\\\viest\\\\Documents\\\\src\\\\birdwatch\\\\mobile\\\\node_modules\\\\expo\\\\src\\\\winter\\\\ImportMetaRegistry.ts''\")",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -Command \"Get-Content ''C:\\\\Users\\\\viest\\\\Documents\\\\src\\\\birdwatch\\\\mobile\\\\node_modules\\\\jest-expo\\\\jest-preset.js''\")",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -Command \"Get-Content ''C:\\\\Users\\\\viest\\\\Documents\\\\src\\\\birdwatch\\\\mobile\\\\node_modules\\\\jest-expo\\\\src\\\\preset\\\\setup.js''\")",
+      "Bash(uvicorn app.main:app --reload --port 8000)",
+      "Bash(npx expo:*)",
+      "Bash(netstat -ano)",
+      "Read(//c/Users/viest/Documents/src/birdwatch/**)",
+      "Bash(xargs -I{} taskkill /PID {} /F)",
+      "Bash(taskkill /PID 29932 /F)",
+      "Bash(cmd /c \"taskkill /PID 29932 /F\")",
+      "Bash(cmd /c \"for /f \"\"tokens=5\"\" %a in \\(''netstat -ano ^| findstr :8081''\\) do taskkill /PID %a /F\")",
+      "Bash(cmd /c \"netstat -ano | findstr :8081\")",
+      "Bash(EXPO_NO_TELEMETRY=1 npx expo start --web --port 8082)"
+    ]
+  }
+}
