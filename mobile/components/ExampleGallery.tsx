@@ -29,11 +29,12 @@ export default function ExampleGallery({ images }: Props) {
 const styles = StyleSheet.create({
   container: {
     gap: 10,
+    paddingHorizontal: 24,
   },
   label: {
     fontSize: 13,
     fontWeight: "700",
-    color: "#2D6A4F",
+    color: "#52B788",
     textTransform: "uppercase",
     letterSpacing: 0.8,
   },
@@ -49,11 +50,11 @@ const styles = StyleSheet.create({
     width: 120,
     height: 90,
     borderRadius: 8,
-    backgroundColor: "#E5E7EB",
+    backgroundColor: "#1C3829",
   },
   attribution: {
     fontSize: 10,
-    color: "#888",
+    color: "#8CB49B",
     marginTop: 4,
     width: 120,
   },

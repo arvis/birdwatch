@@ -2,6 +2,7 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
+  Image,
   Linking,
   ScrollView,
   StyleSheet,
@@ -42,7 +43,10 @@ export default function ResultScreen() {
   if (state.status === "loading") {
     return (
       <View style={styles.centered}>
-        <ActivityIndicator size="large" color="#2D6A4F" />
+        {imageUri ? (
+          <Image source={{ uri: imageUri }} style={styles.loadingImage} />
+        ) : null}
+        <ActivityIndicator size="large" color="#52B788" />
         <Text style={styles.loadingText}>Identifying...</Text>
       </View>
     );
@@ -68,9 +72,13 @@ export default function ResultScreen() {
 
   return (
     <ScrollView style={styles.scroll} contentContainerStyle={styles.content}>
+      <Image source={{ uri: imageUri }} style={styles.heroImage} />
+
       <Text style={styles.species}>{result.species}</Text>
       <Text style={styles.scientific}>{result.scientific_name}</Text>
-      <ConfidenceBadge confidence={result.confidence} />
+      <View style={styles.badgeRow}>
+        <ConfidenceBadge confidence={result.confidence} />
+      </View>
 
       <View style={styles.card}>
         <Text style={styles.cardText}>{result.description}</Text>
@@ -114,24 +122,29 @@ export default function ResultScreen() {
 const styles = StyleSheet.create({
   scroll: {
     flex: 1,
-    backgroundColor: "#F8F5F0",
+    backgroundColor: "#0D2818",
   },
   content: {
-    padding: 24,
     gap: 16,
     paddingBottom: 48,
   },
   centered: {
     flex: 1,
-    backgroundColor: "#F8F5F0",
+    backgroundColor: "#0D2818",
     alignItems: "center",
     justifyContent: "center",
     padding: 32,
     gap: 16,
   },
+  loadingImage: {
+    width: 200,
+    height: 150,
+    borderRadius: 12,
+    marginBottom: 8,
+  },
   loadingText: {
     fontSize: 16,
-    color: "#555",
+    color: "#8CB49B",
     marginTop: 8,
   },
   errorEmoji: {
@@ -140,69 +153,82 @@ const styles = StyleSheet.create({
   errorTitle: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#1B1B1B",
+    color: "#F0EDE8",
   },
   errorMessage: {
     fontSize: 14,
-    color: "#555",
+    color: "#8CB49B",
     textAlign: "center",
   },
+  heroImage: {
+    width: "100%",
+    height: 280,
+    borderRadius: 0,
+  },
   species: {
-    fontSize: 32,
+    fontSize: 30,
     fontWeight: "bold",
-    color: "#1B1B1B",
+    color: "#F0EDE8",
+    paddingHorizontal: 24,
   },
   scientific: {
     fontSize: 16,
     fontStyle: "italic",
-    color: "#666",
+    color: "#8CB49B",
     marginTop: -8,
+    paddingHorizontal: 24,
   },
   card: {
-    backgroundColor: "#fff",
+    backgroundColor: "#1C3829",
     borderRadius: 12,
     padding: 16,
     gap: 8,
+    marginHorizontal: 24,
   },
   cardLabel: {
     fontSize: 13,
     fontWeight: "700",
-    color: "#2D6A4F",
+    color: "#52B788",
     textTransform: "uppercase",
     letterSpacing: 0.8,
   },
   cardText: {
     fontSize: 15,
-    color: "#1B1B1B",
+    color: "#F0EDE8",
     lineHeight: 22,
   },
   fact: {
     fontSize: 15,
-    color: "#1B1B1B",
+    color: "#F0EDE8",
     lineHeight: 22,
+  },
+  badgeRow: {
+    paddingHorizontal: 24,
   },
   wikiButton: {
     paddingVertical: 14,
     borderRadius: 12,
     alignItems: "center",
     borderWidth: 2,
-    borderColor: "#2D6A4F",
+    borderColor: "#52B788",
+    marginHorizontal: 24,
   },
   wikiButtonText: {
-    color: "#2D6A4F",
+    color: "#52B788",
     fontSize: 15,
     fontWeight: "600",
   },
   primaryButton: {
-    backgroundColor: "#2D6A4F",
+    backgroundColor: "#52B788",
     paddingVertical: 16,
     borderRadius: 12,
     alignItems: "center",
+    marginHorizontal: 24,
   },
   primaryButtonText: {
-    color: "#F8F5F0",
+    color: "#0D2818",
     fontSize: 16,
-    fontWeight: "600",
+    fontWeight: "700",
   },
   secondaryButton: {
     paddingVertical: 14,
@@ -210,7 +236,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   secondaryButtonText: {
-    color: "#2D6A4F",
+    color: "#52B788",
     fontSize: 15,
     fontWeight: "600",
   },

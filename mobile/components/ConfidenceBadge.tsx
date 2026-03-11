@@ -5,9 +5,9 @@ interface Props {
 }
 
 const CONFIG = {
-  high: { bg: "#D1FAE5", text: "#065F46", label: "High Confidence" },
-  medium: { bg: "#FEF3C7", text: "#92400E", label: "Medium Confidence" },
-  low: { bg: "#FEE2E2", text: "#991B1B", label: "Low Confidence" },
+  high: { bg: "#1A4731", text: "#52B788", label: "High Confidence" },
+  medium: { bg: "#3D2E0A", text: "#F5C542", label: "Medium Confidence" },
+  low: { bg: "#3D1515", text: "#F87171", label: "Low Confidence" },
 };
 
 export default function ConfidenceBadge({ confidence }: Props) {

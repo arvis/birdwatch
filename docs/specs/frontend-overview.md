@@ -4,13 +4,13 @@
 React Native (Expo) mobile app for iOS and Android. Users capture or upload bird photos and receive AI-powered identification results.
 
 ## Stack
-- **Framework**: React Native with Expo SDK
+- **Framework**: React Native with Expo SDK 55
 - **Navigation**: Expo Router (file-based)
 - **Language**: TypeScript
-- **Camera**: expo-camera, expo-image-picker
-- **Styling**: React Native StyleSheet (no external UI lib to start)
-- **HTTP**: fetch (built-in) or axios
-- **State**: React useState/useContext (keep it simple)
+- **Camera & Picker**: expo-image-picker (gallery + camera capture)
+- **Styling**: React Native StyleSheet (no external UI lib)
+- **HTTP**: fetch (built-in)
+- **State**: React useState (no external state lib)
 
 ## Future Integrations (not in v1)
 - **Ads**: react-native-google-mobile-ads
@@ -21,16 +21,12 @@ React Native (Expo) mobile app for iOS and Android. Users capture or upload bird
 ```
 mobile/
 ├── app/
-│   ├── _layout.tsx              # Root layout, global providers
-│   ├── index.tsx                # Home screen - camera/upload
-│   └── result.tsx               # Result screen - bird info
+│   ├── _layout.tsx              # Root layout, Expo Router stack config
+│   ├── index.tsx                # Home screen - camera capture + gallery picker
+│   └── result.tsx               # Result screen - loading / success / error
 ├── components/
-│   ├── CameraCapture.tsx        # Camera viewfinder + capture
-│   ├── ImagePickerButton.tsx    # Gallery picker button
-│   ├── ResultCard.tsx           # Bird info display card
-│   ├── ExampleGallery.tsx       # Horizontal image carousel
-│   ├── ConfidenceBadge.tsx      # Color-coded confidence indicator
-│   └── LoadingOverlay.tsx       # Full-screen loading animation
+│   ├── ConfidenceBadge.tsx      # Color-coded confidence pill badge
+│   └── ExampleGallery.tsx       # Horizontal image thumbnail scroll
 ├── lib/
 │   ├── api.ts                   # Backend API client
 │   └── types.ts                 # Shared TypeScript types
@@ -47,25 +43,37 @@ mobile/
 ## Screens
 
 ### Home Screen (`index.tsx`)
-- **Camera mode**: Full-screen camera viewfinder with capture button
-- **Gallery mode**: Button to pick image from photo library
-- Toggle between camera and gallery
-- Image preview after capture/selection with "Identify" and "Retake" buttons
-- Permissions handling for camera and photo library
+Two states:
+
+**Idle** (no image selected):
+- App name + eagle emoji hero section
+- Two buttons side by side: **"Take Photo"** (primary) and **"Library"** (secondary)
+- "Take Photo" hidden on web (`Platform.OS !== "web"`)
+
+**Preview** (image selected):
+- Full-screen image preview
+- Two buttons: **"Choose Different"** (re-opens picker/camera) and **"Identify"** (navigates to result)
+
+Permissions handled for both camera and photo library; denied → Settings-redirect alert.
 
 ### Result Screen (`result.tsx`)
-- Receives image URI via route params
-- Sends image to backend `POST /api/identify`
-- **Loading state**: Animated bird icon or skeleton cards
-- **Success state**:
-  - Bird species name (large) + scientific name (italic, smaller)
-  - Confidence badge (green=high, yellow=medium, red=low)
-  - Description paragraph
-  - Habitat section
-  - Fun facts as a numbered list
-  - Example images in horizontal ScrollView
-- **Error state**: Friendly message + "Try Again" button
-- "Identify Another" button at bottom
+Receives `imageUri` via route params. On mount, calls `identifyBird(imageUri)`.
+
+**Loading state**: thumbnail of submitted photo + spinner + "Identifying..." label
+
+**Success state** (scrollable):
+- Full-width hero image (submitted photo, 280px tall)
+- Bird species name (large, bold)
+- Scientific name (italic, smaller, muted)
+- `ConfidenceBadge`
+- Description card
+- Habitat card
+- Fun Facts card (numbered list)
+- Example Images (`ExampleGallery`, hidden if empty)
+- Wikipedia link button (hidden if null)
+- "Identify Another" button
+
+**Error state**: friendly message + "Try Again" + "Go Back"
 
 ## API Client (`lib/api.ts`)
 ```typescript
@@ -80,21 +88,31 @@ async function identifyBird(imageUri: string): Promise<BirdResult> {
 
 ## Navigation Flow
 ```
-Home (camera/upload)
-  ├── [capture photo] → preview → [identify] → Result
-  ├── [pick from gallery] → preview → [identify] → Result
-  └── Result
-       └── [identify another] → Home
+Home (idle)
+  ├── [take photo]     → Home (preview)
+  ├── [pick gallery]   → Home (preview)
+  └── Home (preview)
+        └── [identify] → Result (loading)
+              ├── [success] → Result (success)
+              │     └── [identify another] → Home (idle)
+              └── [error] → Result (error)
+                    ├── [try again] → Result (loading)
+                    └── [go back]   → Home (idle)
 ```
 
 ## Permissions
-- Camera: requested on first camera access
-- Photo Library: requested on first gallery access
-- Graceful fallback if denied (show settings link)
+- Camera: requested on first "Take Photo" tap (`requestCameraPermissionsAsync`)
+- Photo Library: requested on first "Library" tap (`requestMediaLibraryPermissionsAsync`)
+- Denied → alert with "Open Settings" option
 
-## Design Guidelines
-- Clean, minimal UI
-- Nature-inspired color palette (greens, earth tones)
-- Large touch targets for mobile
-- Card-based layout for results
-- Smooth transitions between screens
+## Design
+- **Theme**: dark nature / field guide — deep forest green backgrounds, bright green accents, warm off-white text
+- **Palette**:
+  - Background: `#0D2818`
+  - Cards: `#1C3829`
+  - Accent: `#52B788`
+  - Text primary: `#F0EDE8`
+  - Text secondary: `#8CB49B`
+- Large touch targets (min 48px height)
+- Card-based layout for result sections
+- No external UI library

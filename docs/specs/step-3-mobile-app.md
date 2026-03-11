@@ -1,13 +1,13 @@
 # Step 3 Spec: Mobile App (MVP)
 
 ## Goal
-React Native (Expo) mobile app where users pick a bird photo from their gallery, send it to the backend, and see the identification result. No camera in this step — image picker only.
+React Native (Expo) mobile app where users take a photo or pick one from their gallery, send it to the backend, and see the identification result.
 
 ## Stack
-- React Native with Expo SDK 52+
+- React Native with Expo SDK 55
 - Expo Router (file-based navigation)
 - TypeScript
-- expo-image-picker (gallery only)
+- expo-image-picker (camera capture + gallery)
 - Built-in fetch (no axios)
 - React useState (no external state lib)
 
@@ -16,10 +16,10 @@ React Native (Expo) mobile app where users pick a bird photo from their gallery,
 mobile/
 ├── app/
 │   ├── _layout.tsx          # Root layout, sets up Expo Router stack
-│   ├── index.tsx            # Home screen - image picker + preview
+│   ├── index.tsx            # Home screen - camera + gallery picker + preview
 │   └── result.tsx           # Result screen - loading / success / error
 ├── components/
-│   ├── ConfidenceBadge.tsx  # Color-coded confidence indicator
+│   ├── ConfidenceBadge.tsx  # Color-coded confidence pill badge
 │   └── ExampleGallery.tsx   # Horizontal image thumbnail scroll
 ├── lib/
 │   ├── api.ts               # Backend API client
@@ -91,10 +91,11 @@ export async function identifyBird(imageUri: string): Promise<BirdResult> {
 - **preview** — image selected, showing preview
 
 ### idle state
-- App name / logo at top
-- Large "Pick a Bird Photo" button (calls `expo-image-picker`)
-- Picker config: gallery only, images only, max 5MB
-- On selection → transition to preview state
+- Eagle emoji + "BirdWatch" title + subtitle hero
+- Two side-by-side buttons:
+  - **"📷 Take Photo"** (primary) — calls `launchCameraAsync`, hidden on web
+  - **"🖼 Library"** (secondary outline) — calls `launchImageLibraryAsync`
+- On web: only "Library" button, full-width
 
 ### preview state
 - Selected image fills most of the screen
@@ -103,24 +104,27 @@ export async function identifyBird(imageUri: string): Promise<BirdResult> {
   - **"Choose Different"** — re-opens picker
 
 ### Permissions
-- Request photo library permission before opening picker
-- If denied: show message explaining why + button to open Settings
+- Camera: `requestCameraPermissionsAsync()` before launching camera
+- Photo library: `requestMediaLibraryPermissionsAsync()` before opening gallery
+- If denied: alert with "Open Settings" link
 
 ## Result Screen (`app/result.tsx`)
 
 Receives `imageUri` via route params. On mount, calls `identifyBird(imageUri)`.
 
 ### Loading state
-- Spinner centered on screen
-- "Identifying..." label below
+- Thumbnail of the submitted photo (200×150, rounded)
+- Spinner below
+- "Identifying..." label
 
 ### Success state (scrollable)
-- Bird species name (large, bold)
-- Scientific name (italic, smaller, muted)
+- Full-width hero image (submitted photo, 280px tall, no border radius — bleeds edge to edge)
+- Bird species name (large, bold, padded)
+- Scientific name (italic, smaller, muted, padded)
 - `ConfidenceBadge` component
-- Description paragraph
-- **Habitat** section with label + text
-- **Fun Facts** numbered list
+- Description card
+- **Habitat** card with label + text
+- **Fun Facts** card with numbered list
 - **Example Images** — `ExampleGallery` component (hidden if empty)
 - Wikipedia link button (hidden if null) — opens in browser via `Linking`
 - "Identify Another" button at bottom — navigates back to home
@@ -136,49 +140,53 @@ Receives `imageUri` via route params. On mount, calls `identifyBird(imageUri)`.
 Props: `confidence: "low" | "medium" | "high"`
 
 Renders a small pill badge:
-- high → green background, "High Confidence"
-- medium → yellow/amber background, "Medium Confidence"
-- low → red background, "Low Confidence"
+- high → dark green bg `#1A4731`, green text `#52B788`, "High Confidence"
+- medium → dark amber bg `#3D2E0A`, yellow text `#F5C542`, "Medium Confidence"
+- low → dark red bg `#3D1515`, red text `#F87171`, "Low Confidence"
 
 ### `ExampleGallery.tsx`
 Props: `images: ExampleImage[]`
 
 Horizontal `ScrollView` of thumbnail images. Each image:
-- Fixed size (e.g. 120×90)
+- Fixed size (120×90)
 - Rounded corners
-- Attribution text below (truncated)
+- Attribution text below (truncated, muted color)
 
 Returns `null` if `images` is empty.
 
 ## Navigation Flow
 ```
 Home (idle)
-  └── [pick photo] → Home (preview)
+  ├── [take photo]   → Home (preview)
+  ├── [pick gallery] → Home (preview)
+  └── Home (preview)
         └── [identify] → Result (loading)
               ├── [success] → Result (success)
               │     └── [identify another] → Home (idle)
               └── [error] → Result (error)
                     ├── [try again] → Result (loading)
-                    └── [go back] → Home (idle)
+                    └── [go back]   → Home (idle)
 ```
 
 ## Design
-- Nature-inspired palette: deep green primary (`#2D6A4F`), off-white background (`#F8F5F0`), warm text (`#1B1B1B`)
-- Large touch targets (min 48px height)
-- Card-based layout for result sections
+- **Theme**: dark nature / field guide
+- **Palette**:
+  - Background: `#0D2818` (deep forest)
+  - Cards: `#1C3829`
+  - Accent / primary button: `#52B788` (bright green, dark text `#0D2818`)
+  - Secondary button: outlined `#52B788`
+  - Text primary: `#F0EDE8`
+  - Text secondary / muted: `#8CB49B`
+  - Header bg: `#0D2818`, header text: `#F0EDE8`
+- Large touch targets (paddingVertical 16)
 - No external UI library
 
-## What's NOT in Step 3
-- Camera viewfinder (Step 4)
-- Image size validation on the client (backend enforces 5MB)
-- Offline handling
-- App icon / splash screen polish
-- EAS Build config
-
 ## Done When
-- User can pick a photo from gallery
+- User can take a photo with the camera
+- User can pick a photo from the gallery
 - Photo is sent to backend `POST /api/identify`
-- Result screen shows species, confidence, description, habitat, fun facts, example images, Wikipedia link
-- Loading and error states are handled
-- "Identify Another" returns to home cleanly
-- App runs on iOS simulator and Android emulator via `npx expo start`
+- Result screen shows: hero photo, species, confidence, description, habitat, fun facts, example images, Wikipedia link
+- Loading state shows submitted photo thumbnail + spinner
+- Error state handled with retry and back navigation
+- Camera button hidden on web
+- App runs on iOS and Android via `npx expo start`

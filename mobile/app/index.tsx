@@ -5,6 +5,7 @@ import {
   Alert,
   Image,
   Linking,
+  Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -40,6 +41,30 @@ export default function HomeScreen() {
     }
   }
 
+  async function takePhoto() {
+    const { status } = await ImagePicker.requestCameraPermissionsAsync();
+    if (status !== "granted") {
+      Alert.alert(
+        "Camera access required",
+        "BirdWatch needs camera access to take photos.",
+        [
+          { text: "Cancel", style: "cancel" },
+          { text: "Open Settings", onPress: () => Linking.openSettings() },
+        ]
+      );
+      return;
+    }
+
+    const result = await ImagePicker.launchCameraAsync({
+      quality: 0.8,
+      allowsEditing: false,
+    });
+
+    if (!result.canceled) {
+      setImageUri(result.assets[0].uri);
+    }
+  }
+
   function identify() {
     if (!imageUri) return;
     router.push({ pathname: "/result", params: { imageUri } });
@@ -64,15 +89,28 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.hero}>
-        <Text style={styles.emoji}>🐦</Text>
+        <Text style={styles.emoji}>🦅</Text>
         <Text style={styles.title}>BirdWatch</Text>
         <Text style={styles.subtitle}>
           Pick a photo to identify any bird instantly
         </Text>
       </View>
-      <TouchableOpacity style={styles.primaryButton} onPress={pickImage}>
-        <Text style={styles.primaryButtonText}>Pick a Bird Photo</Text>
-      </TouchableOpacity>
+      <View style={styles.buttonRow}>
+        {Platform.OS !== "web" && (
+          <TouchableOpacity style={styles.primaryButton} onPress={takePhoto}>
+            <Text style={styles.primaryButtonText}>📷  Take Photo</Text>
+          </TouchableOpacity>
+        )}
+        <TouchableOpacity
+          style={[
+            styles.secondaryButton,
+            Platform.OS === "web" && styles.fullWidth,
+          ]}
+          onPress={pickImage}
+        >
+          <Text style={styles.secondaryButtonText}>🖼  Library</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -80,7 +118,7 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F8F5F0",
+    backgroundColor: "#0D2818",
     padding: 24,
     justifyContent: "space-between",
   },
@@ -91,16 +129,16 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   emoji: {
-    fontSize: 72,
+    fontSize: 96,
   },
   title: {
     fontSize: 36,
     fontWeight: "bold",
-    color: "#1B1B1B",
+    color: "#F0EDE8",
   },
   subtitle: {
     fontSize: 16,
-    color: "#555",
+    color: "#8CB49B",
     textAlign: "center",
     maxWidth: 260,
   },
@@ -115,15 +153,15 @@ const styles = StyleSheet.create({
   },
   primaryButton: {
     flex: 1,
-    backgroundColor: "#2D6A4F",
+    backgroundColor: "#52B788",
     paddingVertical: 16,
     borderRadius: 12,
     alignItems: "center",
   },
   primaryButtonText: {
-    color: "#F8F5F0",
+    color: "#0D2818",
     fontSize: 16,
-    fontWeight: "600",
+    fontWeight: "700",
   },
   secondaryButton: {
     flex: 1,
@@ -132,11 +170,14 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     alignItems: "center",
     borderWidth: 2,
-    borderColor: "#2D6A4F",
+    borderColor: "#52B788",
   },
   secondaryButtonText: {
-    color: "#2D6A4F",
+    color: "#52B788",
     fontSize: 16,
     fontWeight: "600",
+  },
+  fullWidth: {
+    flex: 1,
   },
 });

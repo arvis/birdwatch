@@ -4,10 +4,10 @@ export default function RootLayout() {
   return (
     <Stack
       screenOptions={{
-        headerStyle: { backgroundColor: "#2D6A4F" },
-        headerTintColor: "#F8F5F0",
+        headerStyle: { backgroundColor: "#0D2818" },
+        headerTintColor: "#F0EDE8",
         headerTitleStyle: { fontWeight: "bold" },
-        contentStyle: { backgroundColor: "#F8F5F0" },
+        contentStyle: { backgroundColor: "#0D2818" },
       }}
     >
       <Stack.Screen name="index" options={{ title: "BirdWatch" }} />
