@@ -2,14 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: planning
-last_updated: "2026-03-18T17:49:14.417Z"
-last_activity: 2026-03-18 — Roadmap created for milestone v1.0 (2 phases)
+status: completed
+stopped_at: Completed 01-usage-statistics plan 02
+last_updated: "2026-03-18T17:51:19.162Z"
+last_activity: 2026-03-18 — Completed 01-usage-statistics/01-01 (stats backend endpoint)
 progress:
   total_phases: 2
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 2
-  completed_plans: 1
+  completed_plans: 2
   percent: 50
 ---
 
@@ -46,6 +47,9 @@ Progress: [█████░░░░░] 50%
 - No PII: stats use anonymous install_id + android_id only
 - [Phase 01-usage-statistics]: JSONL for stats logging: simple, grep-able, no DB dependency
 - [Phase 01-usage-statistics]: append_stat is synchronous: file I/O fast enough for fire-and-forget stats
+- [Phase 01-usage-statistics]: expo-application SDK 55 uses getAndroidId() function not androidId property
+- [Phase 01-usage-statistics]: stats.ts duplicates API_URL constant from api.ts to keep stats module self-contained
+- [Phase 01-usage-statistics]: duration_ms is 0 in Wikipedia tap stats event — tap is secondary event, not timed identification
 
 ### Known Context
 - Step 6 (local dev setup) already complete — API URL uses 10.0.2.2 for Android emulator
@@ -59,5 +63,5 @@ Progress: [█████░░░░░] 50%
 
 ## Session Continuity
 
-Stopped at: Completed 01-usage-statistics/01-01-PLAN.md
+Stopped at: Completed 01-usage-statistics plan 02
 Next action: Execute remaining plans in Phase 1 (Usage Statistics)
