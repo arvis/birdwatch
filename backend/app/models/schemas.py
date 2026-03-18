@@ -24,3 +24,19 @@ class BirdLinks(BaseModel):
 class IdentifyResponse(BirdResult):
     example_images: list[ExampleImage] = []
     links: BirdLinks = BirdLinks()
+
+
+class StatsEvent(BaseModel):
+    install_id: str
+    android_id: str | None = None
+    species: str
+    scientific_name: str
+    confidence: str
+    had_result: bool
+    duration_ms: int
+    wikipedia_tapped: bool
+    example_images_count: int
+    platform: str
+    app_version: str
+    os_version: str
+    timestamp: str
