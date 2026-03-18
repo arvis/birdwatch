@@ -24,7 +24,10 @@
   2. If the stats endpoint is unreachable or returns an error, the result screen still displays normally with no error message or delay
   3. When a user taps the Wikipedia link on the result screen, a second stats write records the wikipedia_tapped flag as true
   4. `POST /api/stats` rejects malformed payloads with a 422 and accepts valid ones with a 200
-**Plans**: TBD
+**Plans:** 2 plans
+Plans:
+- [ ] 01-01-PLAN.md — Backend stats endpoint, service, model, and tests
+- [ ] 01-02-PLAN.md — Mobile device ID, stats module, and result screen integration
 
 ### Phase 2: Internationalization
 **Goal**: Users can switch the app UI between English and Latvian at any time; their chosen language persists; new installs default to the device locale
@@ -42,5 +45,5 @@
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Usage Statistics | 0/TBD | Not started | - |
+| 1. Usage Statistics | 0/2 | Planned | - |
 | 2. Internationalization | 0/TBD | Not started | - |
