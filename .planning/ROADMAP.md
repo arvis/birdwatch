@@ -10,7 +10,7 @@
 - Integer phases (1, 2, 3): Planned milestone work
 - Decimal phases (2.1, 2.2): Urgent insertions (marked with INSERTED)
 
-- [ ] **Phase 1: Usage Statistics** - Backend event endpoint + mobile fire-and-forget tracking after every identification
+- [x] **Phase 1: Usage Statistics** - Backend event endpoint + mobile fire-and-forget tracking after every identification (completed 2026-03-18)
 - [ ] **Phase 2: Internationalization** - i18next setup, EN + LV translations, Settings screen with language picker
 
 ## Phase Details
@@ -24,7 +24,7 @@
   2. If the stats endpoint is unreachable or returns an error, the result screen still displays normally with no error message or delay
   3. When a user taps the Wikipedia link on the result screen, a second stats write records the wikipedia_tapped flag as true
   4. `POST /api/stats` rejects malformed payloads with a 422 and accepts valid ones with a 200
-**Plans:** 1/2 plans executed
+**Plans:** 2/2 plans complete
 Plans:
 - [ ] 01-01-PLAN.md — Backend stats endpoint, service, model, and tests
 - [ ] 01-02-PLAN.md — Mobile device ID, stats module, and result screen integration
@@ -45,5 +45,5 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Usage Statistics | 1/2 | In Progress|  |
+| 1. Usage Statistics | 1/2 | Complete    | 2026-03-18 |
 | 2. Internationalization | 0/TBD | Not started | - |
