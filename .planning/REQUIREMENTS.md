@@ -10,7 +10,7 @@
 - [ ] **STAT-01**: App sends an identification event to the backend after every bird identification
 - [ ] **STAT-02**: Event includes device identifiers (install_id + android_id), species, confidence, duration, platform, app version
 - [ ] **STAT-03**: Stats failure never blocks or shows errors to the user (fire-and-forget)
-- [ ] **STAT-04**: Backend accepts `POST /api/stats` and appends events to `stats.jsonl`
+- [x] **STAT-04**: Backend accepts `POST /api/stats` and appends events to `stats.jsonl`
 - [ ] **STAT-05**: Wikipedia tap is tracked (boolean flag updated when user taps the link)
 
 ### Internationalization
@@ -44,7 +44,7 @@
 | STAT-01 | Phase 1 | Pending |
 | STAT-02 | Phase 1 | Pending |
 | STAT-03 | Phase 1 | Pending |
-| STAT-04 | Phase 1 | Pending |
+| STAT-04 | Phase 1 | Complete |
 | STAT-05 | Phase 1 | Pending |
 | I18N-01 | Phase 2 | Pending |
 | I18N-02 | Phase 2 | Pending |
