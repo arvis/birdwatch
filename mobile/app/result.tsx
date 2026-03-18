@@ -1,5 +1,5 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
   Image,
@@ -14,6 +14,7 @@ import {
 import ConfidenceBadge from "../components/ConfidenceBadge";
 import ExampleGallery from "../components/ExampleGallery";
 import { identifyBird } from "../lib/api";
+import { sendStats } from "../lib/stats";
 import { BirdResult } from "../lib/types";
 
 type ScreenState =
@@ -25,12 +26,25 @@ export default function ResultScreen() {
   const { imageUri } = useLocalSearchParams<{ imageUri: string }>();
   const router = useRouter();
   const [state, setState] = useState<ScreenState>({ status: "loading" });
+  const wikipediaTapped = useRef(false);
 
   async function runIdentification() {
     setState({ status: "loading" });
+    const start = Date.now();
     try {
       const result = await identifyBird(imageUri);
+      const duration_ms = Date.now() - start;
       setState({ status: "success", result });
+
+      sendStats({
+        species: result.species,
+        scientific_name: result.scientific_name,
+        confidence: result.confidence,
+        had_result: result.species !== "Unknown",
+        duration_ms,
+        wikipedia_tapped: false,
+        example_images_count: result.example_images.length,
+      });
     } catch (e: any) {
       setState({ status: "error", message: e.message ?? "Something went wrong" });
     }
@@ -103,7 +117,21 @@ export default function ResultScreen() {
       {result.links.wikipedia && (
         <TouchableOpacity
           style={styles.wikiButton}
-          onPress={() => Linking.openURL(result.links.wikipedia!)}
+          onPress={() => {
+            Linking.openURL(result.links.wikipedia!);
+            if (!wikipediaTapped.current) {
+              wikipediaTapped.current = true;
+              sendStats({
+                species: result.species,
+                scientific_name: result.scientific_name,
+                confidence: result.confidence,
+                had_result: result.species !== "Unknown",
+                duration_ms: 0,
+                wikipedia_tapped: true,
+                example_images_count: result.example_images.length,
+              });
+            }
+          }}
         >
           <Text style={styles.wikiButtonText}>Read on Wikipedia →</Text>
         </TouchableOpacity>
