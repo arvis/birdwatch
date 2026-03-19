@@ -1,6 +1,7 @@
 import * as ImagePicker from "expo-image-picker";
 import { useRouter } from "expo-router";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Alert,
   Image,
@@ -14,17 +15,18 @@ import {
 
 export default function HomeScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const [imageUri, setImageUri] = useState<string | null>(null);
 
   async function pickImage() {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (status !== "granted") {
       Alert.alert(
-        "Permission required",
-        "BirdWatch needs access to your photo library to identify birds.",
+        t("home.permissionTitle"),
+        t("home.permissionMessage"),
         [
-          { text: "Cancel", style: "cancel" },
-          { text: "Open Settings", onPress: () => Linking.openSettings() },
+          { text: t("home.cancel"), style: "cancel" },
+          { text: t("home.openSettings"), onPress: () => Linking.openSettings() },
         ]
       );
       return;
@@ -45,11 +47,11 @@ export default function HomeScreen() {
     const { status } = await ImagePicker.requestCameraPermissionsAsync();
     if (status !== "granted") {
       Alert.alert(
-        "Camera access required",
-        "BirdWatch needs camera access to take photos.",
+        t("home.permissionTitle"),
+        t("home.permissionMessage"),
         [
-          { text: "Cancel", style: "cancel" },
-          { text: "Open Settings", onPress: () => Linking.openSettings() },
+          { text: t("home.cancel"), style: "cancel" },
+          { text: t("home.openSettings"), onPress: () => Linking.openSettings() },
         ]
       );
       return;
@@ -76,10 +78,10 @@ export default function HomeScreen() {
         <Image source={{ uri: imageUri }} style={styles.preview} />
         <View style={styles.buttonRow}>
           <TouchableOpacity style={styles.secondaryButton} onPress={pickImage}>
-            <Text style={styles.secondaryButtonText}>Choose Different</Text>
+            <Text style={styles.secondaryButtonText}>{t("home.chooseDifferent")}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.primaryButton} onPress={identify}>
-            <Text style={styles.primaryButtonText}>Identify</Text>
+            <Text style={styles.primaryButtonText}>{t("home.identify")}</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -90,10 +92,8 @@ export default function HomeScreen() {
     <View style={styles.container}>
       <View style={styles.hero}>
         <Text style={styles.emoji}>🦅</Text>
-        <Text style={styles.title}>BirdWatch</Text>
-        <Text style={styles.subtitle}>
-          Pick a photo to identify any bird instantly
-        </Text>
+        <Text style={styles.title}>{t("home.title")}</Text>
+        <Text style={styles.subtitle}>{t("home.subtitle")}</Text>
       </View>
       <View style={styles.buttonRow}>
         {Platform.OS !== "web" && (

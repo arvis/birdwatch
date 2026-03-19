@@ -25,7 +25,7 @@ describe("ExampleGallery", () => {
 
   it("renders the section label when images are present", () => {
     render(<ExampleGallery images={mockImages} />);
-    expect(screen.getByText("Example Photos")).toBeTruthy();
+    expect(screen.getByText("result.examplePhotos")).toBeTruthy();
   });
 
   it("renders attribution for each image", () => {

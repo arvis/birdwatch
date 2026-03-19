@@ -1,0 +1,35 @@
+{
+  "home": {
+    "title": "BirdWatch",
+    "subtitle": "Izvēlieties fotoattēlu, lai uzreiz identificētu jebkuru putnu",
+    "pickPhoto": "Izvēlēties putna fotoattēlu",
+    "chooseDifferent": "Izvēlēties citu",
+    "identify": "Identificēt",
+    "permissionTitle": "Nepieciešama atļauja",
+    "permissionMessage": "BirdWatch nepieciešama piekļuve jūsu fotoattēlu bibliotēkai, lai identificētu putnus.",
+    "cancel": "Atcelt",
+    "openSettings": "Atvērt iestatījumus"
+  },
+  "result": {
+    "screenTitle": "Identifikācija",
+    "identifying": "Identificē...",
+    "errorTitle": "Identifikācija neizdevās",
+    "tryAgain": "Mēģināt vēlreiz",
+    "goBack": "Atpakaļ",
+    "habitat": "Dzīvotne",
+    "funFacts": "Interesanti fakti",
+    "examplePhotos": "Piemēru fotoattēli",
+    "readOnWikipedia": "Lasīt Vikipēdijā →",
+    "identifyAnother": "Identificēt citu"
+  },
+  "confidence": {
+    "high": "Augsta ticamība",
+    "medium": "Vidēja ticamība",
+    "low": "Zema ticamība"
+  },
+  "settings": {
+    "screenTitle": "Iestatījumi",
+    "language": "Valoda",
+    "languageNote": "Izvēlieties vēlamo valodu"
+  }
+}

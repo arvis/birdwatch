@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 
 import { ExampleImage } from "../lib/types";
@@ -7,11 +8,12 @@ interface Props {
 }
 
 export default function ExampleGallery({ images }: Props) {
+  const { t } = useTranslation();
   if (images.length === 0) return null;
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Example Photos</Text>
+      <Text style={styles.label}>{t("result.examplePhotos")}</Text>
       <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.scroll}>
         {images.map((img, i) => (
           <View key={i} style={styles.item}>

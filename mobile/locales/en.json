@@ -1,0 +1,35 @@
+{
+  "home": {
+    "title": "BirdWatch",
+    "subtitle": "Pick a photo to identify any bird instantly",
+    "pickPhoto": "Pick a Bird Photo",
+    "chooseDifferent": "Choose Different",
+    "identify": "Identify",
+    "permissionTitle": "Permission required",
+    "permissionMessage": "BirdWatch needs access to your photo library to identify birds.",
+    "cancel": "Cancel",
+    "openSettings": "Open Settings"
+  },
+  "result": {
+    "screenTitle": "Identification",
+    "identifying": "Identifying...",
+    "errorTitle": "Identification failed",
+    "tryAgain": "Try Again",
+    "goBack": "Go Back",
+    "habitat": "Habitat",
+    "funFacts": "Fun Facts",
+    "examplePhotos": "Example Photos",
+    "readOnWikipedia": "Read on Wikipedia →",
+    "identifyAnother": "Identify Another"
+  },
+  "confidence": {
+    "high": "High Confidence",
+    "medium": "Medium Confidence",
+    "low": "Low Confidence"
+  },
+  "settings": {
+    "screenTitle": "Settings",
+    "language": "Language",
+    "languageNote": "Choose your preferred language"
+  }
+}

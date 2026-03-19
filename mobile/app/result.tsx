@@ -1,5 +1,6 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   ActivityIndicator,
   Image,
@@ -25,6 +26,7 @@ type ScreenState =
 export default function ResultScreen() {
   const { imageUri } = useLocalSearchParams<{ imageUri: string }>();
   const router = useRouter();
+  const { t } = useTranslation();
   const [state, setState] = useState<ScreenState>({ status: "loading" });
   const wikipediaTapped = useRef(false);
 
@@ -61,7 +63,7 @@ export default function ResultScreen() {
           <Image source={{ uri: imageUri }} style={styles.loadingImage} />
         ) : null}
         <ActivityIndicator size="large" color="#52B788" />
-        <Text style={styles.loadingText}>Identifying...</Text>
+        <Text style={styles.loadingText}>{t("result.identifying")}</Text>
       </View>
     );
   }
@@ -70,13 +72,13 @@ export default function ResultScreen() {
     return (
       <View style={styles.centered}>
         <Text style={styles.errorEmoji}>😕</Text>
-        <Text style={styles.errorTitle}>Identification failed</Text>
+        <Text style={styles.errorTitle}>{t("result.errorTitle")}</Text>
         <Text style={styles.errorMessage}>{state.message}</Text>
         <TouchableOpacity style={styles.primaryButton} onPress={runIdentification}>
-          <Text style={styles.primaryButtonText}>Try Again</Text>
+          <Text style={styles.primaryButtonText}>{t("result.tryAgain")}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.secondaryButton} onPress={() => router.back()}>
-          <Text style={styles.secondaryButtonText}>Go Back</Text>
+          <Text style={styles.secondaryButtonText}>{t("result.goBack")}</Text>
         </TouchableOpacity>
       </View>
     );
@@ -99,12 +101,12 @@ export default function ResultScreen() {
       </View>
 
       <View style={styles.card}>
-        <Text style={styles.cardLabel}>Habitat</Text>
+        <Text style={styles.cardLabel}>{t("result.habitat")}</Text>
         <Text style={styles.cardText}>{result.habitat}</Text>
       </View>
 
       <View style={styles.card}>
-        <Text style={styles.cardLabel}>Fun Facts</Text>
+        <Text style={styles.cardLabel}>{t("result.funFacts")}</Text>
         {result.fun_facts.map((fact, i) => (
           <Text key={i} style={styles.fact}>
             {i + 1}. {fact}
@@ -133,7 +135,7 @@ export default function ResultScreen() {
             }
           }}
         >
-          <Text style={styles.wikiButtonText}>Read on Wikipedia →</Text>
+          <Text style={styles.wikiButtonText}>{t("result.readOnWikipedia")}</Text>
         </TouchableOpacity>
       )}
 
@@ -141,7 +143,7 @@ export default function ResultScreen() {
         style={styles.primaryButton}
         onPress={() => router.replace("/")}
       >
-        <Text style={styles.primaryButtonText}>Identify Another</Text>
+        <Text style={styles.primaryButtonText}>{t("result.identifyAnother")}</Text>
       </TouchableOpacity>
     </ScrollView>
   );

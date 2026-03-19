@@ -2,18 +2,18 @@ import { render, screen } from "@testing-library/react-native";
 import ConfidenceBadge from "../components/ConfidenceBadge";
 
 describe("ConfidenceBadge", () => {
-  it("shows High Confidence for high", () => {
+  it("shows high confidence key for high", () => {
     render(<ConfidenceBadge confidence="high" />);
-    expect(screen.getByText("High Confidence")).toBeTruthy();
+    expect(screen.getByText("confidence.high")).toBeTruthy();
   });
 
-  it("shows Medium Confidence for medium", () => {
+  it("shows medium confidence key for medium", () => {
     render(<ConfidenceBadge confidence="medium" />);
-    expect(screen.getByText("Medium Confidence")).toBeTruthy();
+    expect(screen.getByText("confidence.medium")).toBeTruthy();
   });
 
-  it("shows Low Confidence for low", () => {
+  it("shows low confidence key for low", () => {
     render(<ConfidenceBadge confidence="low" />);
-    expect(screen.getByText("Low Confidence")).toBeTruthy();
+    expect(screen.getByText("confidence.low")).toBeTruthy();
   });
 });
