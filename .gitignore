@@ -20,6 +20,12 @@ dist/
 .vscode/
 .idea/
 
+# Runtime data
+stats.jsonl
+
 # OS
 .DS_Store
 Thumbs.db
+
+# Content drafts
+drafts/

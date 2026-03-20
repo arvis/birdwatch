@@ -42,6 +42,9 @@ npm install
 npx expo start
 ```
 
+## Git
+- **Commit after each step** — when a spec step is complete and tests pass, create a git commit before moving to the next step
+
 ## Testing
 - **Tests first**: Always run existing tests before making changes and after completing changes
 - Backend unit tests: `cd backend && pytest -v` (mocked, no API calls)

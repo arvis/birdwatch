@@ -5,6 +5,57 @@ Move from a working Expo app (tested in Expo Go) to a real Android APK installab
 
 ## Development → Android Flow
 
+### Phase 0: Android Emulator via Android Studio (fastest local dev)
+
+Since Android Studio is installed, you can run the app on a virtual Android device without a physical phone.
+
+**One-time setup — create a virtual device (AVD):**
+
+1. Open Android Studio
+2. Go to **More Actions → Virtual Device Manager** (or Tools menu → Device Manager)
+3. Click **Create Device**
+4. Pick a phone (e.g. Pixel 6) → click Next
+5. Download a system image (e.g. **API 34 / Android 14**, x86_64) → click Next → Finish
+6. Click the green ▶ play button next to the device to boot the emulator
+
+**Run the app on the emulator:**
+
+```bash
+cd mobile
+npx expo start
+```
+
+When the dev server is running, press **`a`** in the terminal to open the app in the Android emulator. Expo will install the Expo Go client automatically.
+
+**API URL for the emulator:**
+
+The emulator cannot reach `localhost` — use `10.0.2.2` which maps to your PC's localhost:
+
+```typescript
+// mobile/lib/api.ts
+const API_URL = __DEV__
+  ? "http://10.0.2.2:8000"            // Android emulator → your PC's localhost
+  : "https://your-app.railway.app";   // production APK
+```
+
+**Every dev session (two terminals):**
+
+Terminal 1 — start the backend:
+```
+cd backend
+uvicorn app.main:app --reload
+```
+
+Terminal 2 — start the mobile dev server:
+```
+cd mobile
+npx expo start
+```
+
+Then press **`a`** in Terminal 2 to open the app in the emulator. Changes hot-reload instantly.
+
+---
+
 ### Phase 1: Build & test with Expo Go (daily development)
 
 No build step needed. Changes hot-reload instantly.

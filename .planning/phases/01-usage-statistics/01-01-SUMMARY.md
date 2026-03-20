@@ -101,3 +101,13 @@ None - no external service configuration required. stats.jsonl is created automa
 ---
 *Phase: 01-usage-statistics*
 *Completed: 2026-03-18*
+
+## Self-Check: PASSED
+
+- FOUND: backend/app/models/schemas.py
+- FOUND: backend/app/services/stats_service.py
+- FOUND: backend/app/routers/stats.py
+- FOUND: backend/tests/test_stats.py
+- FOUND: .planning/phases/01-usage-statistics/01-01-SUMMARY.md
+- FOUND commit f48eafc (feat: Task 1)
+- FOUND commit 91c2cbe (test: Task 2)
